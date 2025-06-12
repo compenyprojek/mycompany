@@ -26,7 +26,7 @@
 <body>
   <div class="login-box">
     <h3 class="text-center mb-4">Login Admin</h3>
-    <form>
+    <form onsubmit="return login()">
       <div class="mb-3">
         <label for="username" class="form-label">Username</label>
         <input type="text" class="form-control" id="username" required>
@@ -38,5 +38,19 @@
       <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>
   </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      if (user === "admin" && pass === "12345") {
+        window.location.href = "admin.html";
+      } else {
+        alert("Username atau password salah!");
+      }
+      return false;
+    }
+  </script>
 </body>
 </html>
