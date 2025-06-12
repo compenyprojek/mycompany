@@ -122,9 +122,9 @@
       document.getElementById('productTable').innerHTML = html;
 
       const projects = JSON.parse(localStorage.getItem('projects')) || [];
-      html = '<tr><th>Judul</th><th>Deskripsi</th><th>Aksi</th></tr>';
+      html = '<tr><th>Judul</th><th>Deskripsi</th><th>Gambar</th><th>Aksi</th></tr>';
       projects.forEach((p, i) => {
-        html += `<tr><td>${p.title}</td><td>${p.desc}</td><td><button onclick="deleteItem('projects', ${i})" class="btn btn-sm btn-danger">Hapus</button></td></tr>`;
+        html += `<tr><td>${p.title}</td><td>${p.desc}</td><td><img src="${p.image}" alt="Gambar Proyek" style="width: 100px;"></td><td><button onclick="deleteItem('projects', ${i})" class="btn btn-sm btn-danger">Hapus</button></td></tr>`;
       });
       document.getElementById('projectTable').innerHTML = html;
 
