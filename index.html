@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PT. Alumindo Jaya</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .hero {
+      background: url('https://source.unsplash.com/1600x400/?aluminum,factory') center/cover no-repeat;
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+    }
+    .card img {
+      height: 150px;
+      object-fit: cover;
+    }
+    .testimonial {
+      background-color: #f8f9fa;
+      padding: 40px 0;
+    }
+    .testimonial blockquote {
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+    .contact {
+      background-color: #efefef;
+      padding: 40px 0;
+    }
+    .gallery {
+      padding: 40px 0;
+    }
+    .gallery img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">PT. Alumindo Jaya</a>
+      <a class="btn btn-outline-light ms-auto" href="admin.html">Admin Panel</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="display-4">Solusi Aluminium Terpercaya di Indonesia</h1>
+      <p class="lead">Kami menyediakan produk dan layanan berkualitas untuk segala kebutuhan aluminium Anda.</p>
+    </div>
+  </section>
+
+  <div class="container py-5">
+    <h2 class="mb-4">Produk Kami</h2>
+    <div class="row" id="productContainer"></div>
+
+    <hr class="my-5">
+
+    <h2 class="mb-4">Proyek Terbaru</h2>
+    <div class="row" id="projectContainer"></div>
+  </div>
+
+  <section class="gallery bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Galeri Kegiatan</h2>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <img src="https://source.unsplash.com/400x300/?aluminum,work" alt="Galeri 1">
+        </div>
+        <div class="col-md-4">
+          <img src="https://source.unsplash.com/400x300/?aluminum,factory" alt="Galeri 2">
+        </div>
+        <div class="col-md-4">
+          <img src="https://source.unsplash.com/400x300/?metal,industry" alt="Galeri 3">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonial">
+    <div class="container">
+      <h2 class="text-center mb-5">Testimoni Klien</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <blockquote class="blockquote">
+            "Pelayanan sangat profesional dan hasilnya memuaskan! Sangat direkomendasikan."
+            <footer class="blockquote-footer">Bapak Andi, Jakarta</footer>
+          </blockquote>
+        </div>
+        <div class="col-md-6">
+          <blockquote class="blockquote">
+            "Kualitas produk aluminium terbaik yang pernah kami gunakan. Layanan cepat dan ramah."
+            <footer class="blockquote-footer">Ibu Sari, Surabaya</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="container">
+      <h2 class="text-center mb-4">Kontak Kami</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Nama</label>
+              <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Pesan</label>
+              <textarea class="form-control" id="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-dark text-white text-center py-3">
+    <small>&copy; 2025 PT. Alumindo Jaya. All rights reserved.</small>
+  </footer>
+
+  <script>
+    function displayProducts() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const container = document.getElementById('productContainer');
+      container.innerHTML = '';
+      products.forEach(product => {
+        container.innerHTML += `
+          <div class="col-md-4 mb-4">
+            <div class="card h-100">
+              <img src="${product.image}" class="card-img-top" alt="${product.name}">
+              <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="card-text">${product.desc}</p>
+                <p class="card-text"><strong>Harga:</strong> Rp${parseInt(product.price).toLocaleString()}</p>
+                <span class="badge bg-secondary">${product.category}</span>
+              </div>
+            </div>
+          </div>`;
+      });
+    }
+
+    function displayProjects() {
+      const projects = JSON.parse(localStorage.getItem('projects')) || [];
+      const container = document.getElementById('projectContainer');
+      container.innerHTML = '';
+      projects.forEach(project => {
+        container.innerHTML += `
+          <div class="col-md-6 mb-4">
+            <div class="card h-100">
+              <img src="${project.image}" class="card-img-top" alt="${project.title}">
+              <div class="card-body">
+                <h5 class="card-title">${project.title}</h5>
+                <p class="card-text">${project.desc}</p>
+              </div>
+            </div>
+          </div>`;
+      });
+    }
+
+    window.onload = function() {
+      displayProducts();
+      displayProjects();
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
