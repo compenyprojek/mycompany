@@ -73,6 +73,16 @@
 
       const savedProfil = localStorage.getItem('profilAlumindo');
       if(savedProfil) document.getElementById('profilPerusahaan').value = savedProfil;
+
+      // Handle Logout
+      const logoutLink = document.getElementById('logoutLink');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function(event) {
+          event.preventDefault();
+          localStorage.clear();
+          window.location.href = '/index.html';
+        });
+      }
     });
   </script>
 </head>
@@ -120,7 +130,7 @@
 
       <section id="logout" class="form-section">
         <h4>Logout</h4>
-        <p><a href="/admin/login.html" class="btn btn-danger">Logout dari sistem</a></p>
+        <p><a href="#" id="logoutLink" class="btn btn-danger">Logout dari sistem</a></p>
       </section>
     </div>
   </div>
