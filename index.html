@@ -3,96 +3,128 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PT. Alumindo Jaya - Solusi Aluminium Terbaik</title>
+  <title>Beranda - PT. Alumindo Jaya</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-    }
-    header {
-      background: url('https://images.unsplash.com/photo-1616708217443-dfae96b1c9d2?auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+      background: url('dc72e94f-7725-449c-a5a4-cbd9e75903b0.png') no-repeat center center fixed;
       background-size: cover;
+    }
+    .sidebar {
+      height: 100vh;
+      background-color: rgba(52, 58, 64, 0.95);
       color: white;
-      padding: 100px 0;
-      text-align: center;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      padding: 1rem;
+      width: 250px;
     }
-    nav a {
-      margin: 0 15px;
+    .sidebar a {
       color: white;
-      font-weight: bold;
+      text-decoration: none;
+      display: block;
+      margin: 1rem 0;
     }
-    section {
-      padding: 60px 20px;
+    .sidebar a:hover {
+      text-decoration: underline;
     }
-    footer {
-      background: #343a40;
-      color: white;
-      text-align: center;
-      padding: 20px 0;
+    .content {
+      padding: 2rem;
+      flex-grow: 1;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      margin: 2rem;
     }
-    .img-fluid {
-      max-width: 100%;
-      height: auto;
+    .form-section {
+      margin-top: 2rem;
     }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const produkForm = document.getElementById('produkForm');
+      const profilForm = document.getElementById('profilForm');
+      const daftarProduk = document.getElementById('daftarProduk');
+
+      const produkTersimpan = JSON.parse(localStorage.getItem('produkAlumindo')) || [];
+      produkTersimpan.forEach(p => {
+        const item = document.createElement('li');
+        item.textContent = `${p.nama} - ${p.deskripsi}`;
+        daftarProduk.appendChild(item);
+      });
+
+      produkForm?.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const nama = document.getElementById('namaProduk').value.trim();
+        const deskripsi = document.getElementById('deskripsiProduk').value.trim();
+
+        if(nama && deskripsi){
+          const item = document.createElement('li');
+          item.textContent = `${nama} - ${deskripsi}`;
+          daftarProduk.appendChild(item);
+
+          produkTersimpan.push({ nama, deskripsi });
+          localStorage.setItem('produkAlumindo', JSON.stringify(produkTersimpan));
+
+          produkForm.reset();
+        }
+      });
+
+      profilForm?.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const profilText = document.getElementById('profilPerusahaan').value;
+        localStorage.setItem('profilAlumindo', profilText);
+        alert('Profil perusahaan berhasil disimpan.');
+      });
+
+      const savedProfil = localStorage.getItem('profilAlumindo');
+      if(savedProfil) document.getElementById('profilPerusahaan').value = savedProfil;
+
+      const logoutLink = document.getElementById('logoutLink');
+      if (logoutLink) {
+        logoutLink.addEventListener('click', function(event) {
+          event.preventDefault();
+          localStorage.clear();
+          window.location.href = 'index.html';
+        });
+      }
+    });
+  </script>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Solusi Aluminium Terbaik untuk Masa Depan</h1>
-      <p>Kami hadir untuk memberikan kualitas dan inovasi dalam industri aluminium.</p>
-      <nav>
-        <a href="#tentang">Tentang</a>
-        <a href="#layanan">Layanan</a>
-        <a href="#kontak">Kontak</a>
-        <a href="login.html">Login Admin</a>
-      </nav>
+  <div class="d-flex">
+    <div class="sidebar">
+      <h4>Menu Utama</h4>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#produk">Produk</a>
+      <a href="#profil">Profil Perusahaan</a>
+      <a href="#logout">Logout</a>
     </div>
-  </header>
+    <div class="content">
+      <section id="dashboard">
+        <h2>Selamat Datang di PT. Alumindo Jaya</h2>
+        <p>Kami menyediakan produk aluminium berkualitas tinggi untuk berbagai kebutuhan proyek Anda.</p>
+      </section>
 
-  <section id="tentang" class="bg-light">
-    <div class="container">
-      <h2 class="text-center">Tentang Kami</h2>
-      <p class="text-center">PT. Alumindo Jaya adalah perusahaan yang bergerak di bidang produksi dan distribusi aluminium berkualitas tinggi untuk kebutuhan konstruksi dan manufaktur di seluruh Indonesia.</p>
-      <div class="text-center">
-        <img src="https://images.unsplash.com/photo-1600267165653-f28b0b38cbe0?auto=format&fit=crop&w=800&q=80" alt="Aluminium Industry" class="img-fluid">
-      </div>
-    </div>
-  </section>
+      <section id="produk" class="form-section">
+        <h4>Produk Kami</h4>
+        <ul id="daftarProduk"></ul>
+      </section>
 
-  <section id="layanan">
-    <div class="container">
-      <h2 class="text-center">Layanan Kami</h2>
-      <div class="row">
-        <div class="col-md-4">
-          <h4>Rangka Aluminium</h4>
-          <p>Struktur rangka aluminium presisi tinggi untuk proyek besar maupun kecil.</p>
-        </div>
-        <div class="col-md-4">
-          <h4>Panel Komposit</h4>
-          <p>Panel aluminium modern yang cocok untuk eksterior dan interior bangunan.</p>
-        </div>
-        <div class="col-md-4">
-          <h4>Railing Aluminium</h4>
-          <p>Railing tangga dan balkon berbahan aluminium tahan lama dan stylish.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <section id="profil" class="form-section">
+        <h4>Tentang Kami</h4>
+        <p id="profilPerusahaan">PT. Alumindo Jaya adalah perusahaan aluminium terpercaya di Indonesia...</p>
+      </section>
 
-  <section id="kontak" class="bg-light">
-    <div class="container">
-      <h2 class="text-center">Hubungi Kami</h2>
-      <p class="text-center">Email: info@alumindojaya.co.id | Telepon: (021) 1234-5678</p>
+      <section class="form-section">
+        <h4>Testimoni</h4>
+        <blockquote class="blockquote">
+          <p class="mb-0">"Produk aluminium dari PT. Alumindo Jaya sangat kokoh dan presisi!"</p>
+          <footer class="blockquote-footer">Andi, Kontraktor Bangunan</footer>
+        </blockquote>
+        <blockquote class="blockquote">
+          <p class="mb-0">"Pelayanan cepat dan produk berkualitas tinggi."</p>
+          <footer class="blockquote-footer">Siti, Developer Perumahan</footer>
+        </blockquote>
+      </section>
     </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 PT. Alumindo Jaya. All rights reserved.</p>
-    </div>
-  </footer>
+  </div>
 </body>
 </html>
