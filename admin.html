@@ -14,6 +14,7 @@
       background-color: #343a40;
       color: white;
       padding: 1rem;
+      width: 250px;
     }
     .sidebar a {
       color: white;
@@ -26,6 +27,10 @@
     }
     .content {
       padding: 2rem;
+      flex-grow: 1;
+    }
+    .form-section {
+      margin-top: 2rem;
     }
   </style>
 </head>
@@ -33,18 +38,31 @@
   <div class="d-flex">
     <div class="sidebar">
       <h4>Admin Panel</h4>
-      <a href="#">Dashboard</a>
+      <a href="#dashboard">Dashboard</a>
       <a href="#produk">Kelola Produk</a>
       <a href="#profil">Profil Perusahaan</a>
       <a href="#logout">Logout</a>
     </div>
-    <div class="content flex-grow-1">
-      <h2>Selamat Datang, Admin!</h2>
-      <p>Gunakan menu di sebelah kiri untuk mengelola konten website PT. Alumindo Jaya.</p>
+    <div class="content">
+      <section id="dashboard">
+        <h2>Selamat Datang, Admin!</h2>
+        <p>Gunakan menu di sebelah kiri untuk mengelola konten website PT. Alumindo Jaya.</p>
+      </section>
 
-      <section id="produk" class="mt-4">
+      <section id="produk" class="form-section">
         <h4>Produk</h4>
-        <p><em>*Fitur edit produk akan terhubung ke database atau file JSON di tahap lanjut*</em></p>
+        <form>
+          <div class="mb-3">
+            <label for="namaProduk" class="form-label">Nama Produk</label>
+            <input type="text" class="form-control" id="namaProduk" placeholder="Masukkan nama produk">
+          </div>
+          <div class="mb-3">
+            <label for="deskripsiProduk" class="form-label">Deskripsi</label>
+            <textarea class="form-control" id="deskripsiProduk" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Tambah Produk</button>
+        </form>
+        <hr>
         <ul>
           <li>Aluminium Frame</li>
           <li>Panel Aluminium Composite</li>
@@ -52,10 +70,19 @@
         </ul>
       </section>
 
-      <section id="profil" class="mt-4">
+      <section id="profil" class="form-section">
         <h4>Profil Perusahaan</h4>
-        <textarea class="form-control" rows="5">PT. Alumindo Jaya adalah perusahaan aluminium terpercaya di Indonesia...</textarea>
-        <button class="btn btn-success mt-2">Simpan</button>
+        <form>
+          <div class="mb-3">
+            <textarea class="form-control" rows="5">PT. Alumindo Jaya adalah perusahaan aluminium terpercaya di Indonesia...</textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Simpan</button>
+        </form>
+      </section>
+
+      <section id="logout" class="form-section">
+        <h4>Logout</h4>
+        <p><a href="/admin/login.html" class="btn btn-danger">Logout dari sistem</a></p>
       </section>
     </div>
   </div>
