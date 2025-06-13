@@ -33,6 +33,48 @@
       margin-top: 2rem;
     }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const produkForm = document.getElementById('produkForm');
+      const profilForm = document.getElementById('profilForm');
+      const daftarProduk = document.getElementById('daftarProduk');
+
+      // Load data produk dari Local Storage
+      const produkTersimpan = JSON.parse(localStorage.getItem('produkAlumindo')) || [];
+      produkTersimpan.forEach(p => {
+        const item = document.createElement('li');
+        item.textContent = `${p.nama} - ${p.deskripsi}`;
+        daftarProduk.appendChild(item);
+      });
+
+      produkForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const nama = document.getElementById('namaProduk').value.trim();
+        const deskripsi = document.getElementById('deskripsiProduk').value.trim();
+
+        if(nama && deskripsi){
+          const item = document.createElement('li');
+          item.textContent = `${nama} - ${deskripsi}`;
+          daftarProduk.appendChild(item);
+
+          produkTersimpan.push({ nama, deskripsi });
+          localStorage.setItem('produkAlumindo', JSON.stringify(produkTersimpan));
+
+          produkForm.reset();
+        }
+      });
+
+      profilForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const profilText = document.getElementById('profilPerusahaan').value;
+        localStorage.setItem('profilAlumindo', profilText);
+        alert('Profil perusahaan berhasil disimpan.');
+      });
+
+      const savedProfil = localStorage.getItem('profilAlumindo');
+      if(savedProfil) document.getElementById('profilPerusahaan').value = savedProfil;
+    });
+  </script>
 </head>
 <body>
   <div class="d-flex">
@@ -51,7 +93,7 @@
 
       <section id="produk" class="form-section">
         <h4>Produk</h4>
-        <form>
+        <form id="produkForm">
           <div class="mb-3">
             <label for="namaProduk" class="form-label">Nama Produk</label>
             <input type="text" class="form-control" id="namaProduk" placeholder="Masukkan nama produk">
@@ -63,18 +105,14 @@
           <button type="submit" class="btn btn-primary">Tambah Produk</button>
         </form>
         <hr>
-        <ul>
-          <li>Aluminium Frame</li>
-          <li>Panel Aluminium Composite</li>
-          <li>Aluminium Railing</li>
-        </ul>
+        <ul id="daftarProduk"></ul>
       </section>
 
       <section id="profil" class="form-section">
         <h4>Profil Perusahaan</h4>
-        <form>
+        <form id="profilForm">
           <div class="mb-3">
-            <textarea class="form-control" rows="5">PT. Alumindo Jaya adalah perusahaan aluminium terpercaya di Indonesia...</textarea>
+            <textarea class="form-control" id="profilPerusahaan" rows="5">PT. Alumindo Jaya adalah perusahaan aluminium terpercaya di Indonesia...</textarea>
           </div>
           <button type="submit" class="btn btn-success">Simpan</button>
         </form>
